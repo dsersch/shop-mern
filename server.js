@@ -4,8 +4,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const PORT = process.env.PORT;
-const DB = process.env.DATABASE.replace('<password>', process.env.PASSWORD)
-const shopItemRouter = require('./routes/shopItemRouter.js')
+const DB = process.env.DATABASE.replace('<password>', process.env.PASSWORD);
+const shopItemRouter = require('./routes/shopItemRouter.js');
+const cardRouter = require('./routes/cardRouter.js');
 
 mongoose.connect(DB, {
     useNewUrlParser: true,
@@ -20,6 +21,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 app.use('/shop', shopItemRouter)
+app.use('/cards', cardRouter)
 
 app.get('/', (req, res) => {
     res.send('working...')

@@ -1,8 +1,13 @@
 const mongoose = require('mongoose');
 
 const shopItemSchema = new mongoose.Schema({
-    name: {
+    cardId: {
         type: String,
+        required: true,
+    },
+    quantity: {
+        type: Number,
+        default: 0,
         required: true,
     }
 })

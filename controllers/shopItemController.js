@@ -1,5 +1,7 @@
 const ShopItem = require('../models/shop-item.js');
 const mongoose = require('mongoose');
+const poke = require('pokemontcgsdk');
+poke.configure({ apiKey: process.env.APIKEY })
 
 module.exports = {
     getAllShopItems: async (req, res) => {
@@ -35,12 +37,14 @@ module.exports = {
     getShopItem: async (req, res) => {
         try {
             const shopItem = await ShopItem.findById(req.params.id);
+            const card = await poke.card.find(shopItem.cardId)
 
             res.status(200).json({
                 status: 'success',
-                data: shopItem,
+                data: card,
             })
         } catch (err) {
+            console.log(err)
             res.status(404).json({
                 status: 'failed',
                 message: err,
